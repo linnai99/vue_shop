@@ -24,8 +24,8 @@ const router = createRouter({
 
 //导航守卫、路由守卫、路由拦截
 router.beforeEach((to,from,next)=>{
-    console.log(to);//要去的路径
-    console.log(from);//从哪来的路径
+    //console.log(to);//要去的路径
+    //console.log(from);//从哪来的路径
     // next();是一个函数,表示放行
     // next('/login') 强制跳转
     //验证token,只有存在token的时候，才能跳转到内容页。

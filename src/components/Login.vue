@@ -54,7 +54,7 @@ export default ({
         }
 
         const instance  = getCurrentInstance()
-        console.log(instance );
+        // console.log(instance );
         const router = useRouter()
         // function login(){
         //     loginFormRef.value.validate(async(login)=>{
@@ -76,7 +76,7 @@ export default ({
                 if(!valid) return;
                 // const result=await http(instance).post("login",loginForm);
                 const {data:result}=await http(instance).post("login",loginForm);
-                console.log(result);
+                // console.log(result);
                 if(result.meta.status!==200) return toast(instance).error("登录失败");
                 toast(instance).success("登录成功");
                 // 1.将登录成功之后的token, 保存到客户端的sessionStorage 中

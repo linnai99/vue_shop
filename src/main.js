@@ -10,6 +10,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import axios from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
+
 const app=createApp(App)
 
 app.config.globalProperties.$http = axios
@@ -22,3 +23,8 @@ app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.mount("#app")
 // 配置请求的根路径
 axios.defaults.baseURL = 'https://lianghj.top:8888/api/private/v1/'
+axios.interceptors.request.use(config=>{
+    console.log(config);
+    config.headers.Authorization = window.sessionStorage.getItem('token')
+    return config;
+})
