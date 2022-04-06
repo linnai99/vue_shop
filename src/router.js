@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Login from './components/Login.vue'
 import {createRouter,createWebHashHistory} from "vue-router";
 import Home from './components/Home.vue'
+import Welcome from './components/Welcome.vue'
+import Users from './components/user/Users.vue'
 
 
 const router = createRouter({
@@ -16,9 +18,19 @@ const router = createRouter({
             component:Login
         },{
             path:"/home",
-            component:Home
+            component:Home,
+            redirect:'/welcome',
+            children:[
+                {
+                    path:'/welcome',
+                    component:Welcome
+                },
+                {
+                    path: '/users',
+                    component: Users
+                  }
+            ]
         }
-
     ]
 });
 

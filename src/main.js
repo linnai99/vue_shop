@@ -10,15 +10,18 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import axios from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import bootstrap from 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min'
 
 const app=createApp(App)
-
 app.config.globalProperties.$http = axios
 app.config.globalProperties.$message = ElMessage
 app.config.globalProperties.$confirm = ElMessageBox
 
 app.use(router)
-app.use(ElementPlus, { size: 'small', zIndex: 3000 })
+app.use(bootstrap)
+app.use(ElementPlus, { size: 'small', zIndex: 3000  })
 // app.component('user-filled',_user-filled)
 app.mount("#app")
 // 配置请求的根路径
