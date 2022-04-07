@@ -26,7 +26,7 @@
         </el-col>
     </el-row>
     <el-table :data="userlist" border stripe>
-        <el-table-column type="index"></el-table-column>
+        <el-table-column type="index" label="索引"></el-table-column>
         <el-table-column label="角色" prop="role_name"></el-table-column>
         <el-table-column label="姓名" prop="username"></el-table-column>
         <el-table-column label="电话" prop="mobile"></el-table-column>
@@ -40,8 +40,8 @@
         <el-table-column label="操作" >
             <template v-slot="scope" width="210px">
                 <el-button type="primary" size="mini" :icon="Edit" @click="showEditDialog(scope.row.id)" />
-                <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-                    <el-button type="warning" size="mini" :icon="Setting"  />
+                <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false" >
+                    <el-button type="warning" size="mini" :icon="Setting" @click="setRole(scope.row)" />
                 </el-tooltip>
                 
                 <el-button type="danger" size="mini" :icon="Delete" @click="removeUserById(scope.row.id)" />
@@ -124,6 +124,29 @@
         </span>
     </template>
     </el-dialog>
+
+    <el-dialog title="分配角色" v-model="SetRoleDialogVisible" @close="setRolesDialogClosed" width="50%">
+       <div>
+           <p>当前的用户：{{userInfo.username}}</p>
+           <p>当前的角色：{{userInfo.role_name}}</p>
+           <p>分配的新角色：
+               <el-select v-model="selectedRoleId"  placeholder="请选择" >
+                <el-option
+                    v-for="item in rolesList"
+                    :key="item.id"
+                    :label="item.roleName"
+                    :value="item.id"
+                />
+                </el-select>
+           </p>
+       </div>
+      <template #footer>
+        <span class="dialog-footer">
+            <el-button @click="SetRoleDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="saveRolesInfo">确 定</el-button>
+        </span>
+      </template>
+    </el-dialog>
 </template>
 <script>
 import { Delete, Edit, Setting,Search } from '@element-plus/icons-vue'
@@ -169,6 +192,13 @@ export default {
         addDialogVisible:false,
         //控制修改用户对话框的显示与隐藏
         editDialogVisible:false,
+        SetRoleDialogVisible:false,
+        //需要被分配角色的用户信息
+        userInfo:{},
+        //all roles list
+        rolesList:[],
+        //已选中的角色id值
+        selectedRoleId:'',
         //添加用户的表单数据
         addForm:{
                 username:'',
@@ -344,6 +374,40 @@ export default {
         // 刷新用户列表
         this.getUserList();
     },
+    async setRole(userInfo){
+        this.userInfo = userInfo;
+        //在展示对话框之前，获取所有角色的列表
+        const {data:res} = await this.$http.get('roles');
+        if(res.meta.status!==200){
+            return this.$message.error('获取角色失败');
+        }
+        this.rolesList = res.data;
+
+        this.SetRoleDialogVisible=true;
+    },
+    //点击按钮，分配角色
+    async saveRolesInfo(){
+        if (!this.selectRoleId) {
+            return this.$message.error('请选择要分配的角色!');
+        }
+        const { data: res } = await this.$http.put(
+        `users/${this.userInfo.id}/role`,
+            {
+            rid: this.selectedRoleId
+            //   角色类别id
+            }
+        )
+        if (res.meta.status !== 200) {
+            return this.$message.error('更新角色失败!');
+        }
+        this.$message.success('更新角色成功!');
+        this.getUserList();
+        this.setRolesDialogVisible = false;
+    },
+    setRolesDialogClosed(){
+        this.selectRoleId = '';
+        this.userInfo = '';
+    }
     
   }
 }
