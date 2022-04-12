@@ -15,9 +15,13 @@
     "element-plus": "^2.1.8",
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
+    "tree-table-vue": "^1.1.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
-    "webpack": "^5.71.0"
+    "vue-table-with-tree-grid": "^0.2.4",
+    "vxe-table": "^4.2.2",
+    "webpack": "^5.71.0",
+    "xe-utils": "^3.5.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

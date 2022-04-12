@@ -30,3 +30,19 @@ body,
 .el-pagination{
   margin-top: 15px;
 }
+
+.el-cascader {
+  width:100%;
+}
+/* 下拉菜单太长的兄弟  全局设置下css     .el-cascader-menu {     height: 300px; } */
+
+.vxe-table--render-default .vxe-cell {
+  /* display: flex;
+  align-items: center; */
+  margin-left: 20px;
+}
+
+.pre{
+  margin-bottom: 0;
+  margin-top: 1rem;
+}

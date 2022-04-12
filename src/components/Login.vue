@@ -17,7 +17,7 @@
                 </el-form-item>
                 <!-- 按钮 -->
                 <el-form-item class="btns">
-                    <el-button type="danger" round @click="login">登录</el-button>
+                    <el-button type="primary" round @click="login">登录</el-button>
                     <el-button type="info" round @click="resetLoginForm">重置</el-button>
                 </el-form-item>
             </el-form>

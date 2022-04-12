@@ -218,6 +218,7 @@ export default {
             this.$http.delete('roles/' + id).then(res => {
                 const { data: response } = res
                 // console.log(response)
+                console.log(response.meta);
                 if (response.meta.status !== 200) {
                 return this.$message.error('该用户删除失败');
                 }
