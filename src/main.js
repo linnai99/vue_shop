@@ -20,6 +20,9 @@ import 'vxe-table/lib/style.css'
 // import TreeTable from 'vue-table-with-tree-grid'
 import ZkTable from 'vue-table-with-tree-grid'
 // import { TreeTable } from 'vue-table-with-tree-grid'
+import dayjs from 'dayjs'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 const app=createApp(App)
 app.config.globalProperties.$http = axios
 app.config.globalProperties.$message = ElMessage
@@ -34,6 +37,9 @@ app.use(ElementPlus, { size: 'small', zIndex: 3000  })
 // app.component('user-filled',_user-filled)
 // app.component('tree-table', TreeTable)
 // app.use(TreeTable)
+app.use(dayjs)
+// app.use(QuillEditor)
+app.component('QuillEditor', QuillEditor)
 app.mount("#app")
 // 配置请求的根路径
 axios.defaults.baseURL = 'https://lianghj.top:8888/api/private/v1/'
